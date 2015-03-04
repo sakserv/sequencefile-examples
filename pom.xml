@@ -12,6 +12,7 @@
         <hadoop-mini-clusters.version>0.0.12</hadoop-mini-clusters.version>
         <hadoop.version>2.6.0.2.2.0.0-2041</hadoop.version>
         <jetty.version>6.1.26</jetty.version>
+        <junit.version>4.11</junit.version>
     </properties>
 
     <repositories>
@@ -46,6 +47,12 @@
             <groupId>com.github.sakserv</groupId>
             <artifactId>hadoop-mini-clusters</artifactId>
             <version>${hadoop-mini-clusters.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
