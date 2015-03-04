@@ -9,3 +9,8 @@ Setup:
 ```
 cd /tmp && git clone https://github.com/sakserv/sequencefile-examples.git
 ```
+
+* Build the project
+```
+cd /tmp/sequencefile-examples && bash -x bin/build.sh
+```
