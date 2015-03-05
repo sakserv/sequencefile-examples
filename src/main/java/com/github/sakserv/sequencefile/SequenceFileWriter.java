@@ -24,21 +24,21 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class Main {
+public class SequenceFileWriter {
     
     // Logger
-    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SequenceFileWriter.class);
     
     public static void main(String[] args) {
+        
+        String outputFile = args[0];
         
         Configuration conf = new Configuration();
         try {
             FileSystem fs = FileSystem.get(conf);
-
-            Path seqFileDir = new Path("/tmp/seq_file_test");
-            fs.mkdirs(seqFileDir);
-
-            Path seqFilePath = new Path(seqFileDir + "/file.seq");
+            
+            Path seqFilePath = new Path(outputFile);
+            fs.mkdirs(seqFilePath.getParent());
 
             SequenceFile.Writer writer = SequenceFile.createWriter(conf,
                     SequenceFile.Writer.file(seqFilePath), SequenceFile.Writer.keyClass(Text.class),
@@ -48,20 +48,8 @@ public class Main {
             writer.append(new Text("key2"), new IntWritable(2));
 
             writer.close();
-
-            SequenceFile.Reader reader = new SequenceFile.Reader(conf,
-                    SequenceFile.Reader.file(seqFilePath));
-
-            Text key = new Text();
-            IntWritable val = new IntWritable();
-
-            while (reader.next(key, val)) {
-                System.out.println("SEQFILE KEY: " + key + "\t" + val);
-            }
-
-            fs.mkdirs(new Path("/tmp/seq_file_test"));
-
-            reader.close();
+            
+            LOG.info("SUCCESS: Successfully wrote " + seqFilePath + " to HDFS.");
         } catch(IOException e) {
             LOG.error("ERROR: Could not load hadoop configuration");
             e.printStackTrace();
