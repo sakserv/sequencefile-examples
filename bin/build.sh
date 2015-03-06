@@ -13,4 +13,4 @@ mvn --version
 
 # Build the project
 echo -e "\n#### Building sequencefile-examples"
-cd /tmp/sequencefile-examples/ && mvn clean package install
+cd /tmp/sequencefile-examples/ && mvn clean test package install
